@@ -56,11 +56,11 @@ def callback(request):
         order.signature_id = signature_id
         order.save()
         if not verify_signature(request.POST):
-            order.status = PaymentStatus.SUCCESS
+            order.status = PaymentStatus.FAILURE
             order.save()
             return render(request, "callback.html", context={"status": order.status})
         else:
-            order.status = PaymentStatus.FAILURE
+            order.status = PaymentStatus.SUCCESSS
             order.save()
             return render(request, "callback.html", context={"status": order.status})
     else:
